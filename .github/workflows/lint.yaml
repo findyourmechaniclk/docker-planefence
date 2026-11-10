@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "lint.yaml"
+# Estimated savings: ~2 min/run
+#
 ---
 name: Lint
 
@@ -7,6 +12,10 @@ on:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   # =====================================================================
   # Primary Lint job
